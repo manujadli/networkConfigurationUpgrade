@@ -41,6 +41,7 @@ def Var2 = 'UNKNOWN'
             }
             steps {
                 echo "Hello, UPGRADE PIPELINE CALLED !"
+				build job: 'CNF_UPGRADE', parameters: [string(release: '2', assembly: 'assembly::Test::1.0', descriptor: 'dddddd')], wait: false
             }
     }
     stage ('Build Project') {
