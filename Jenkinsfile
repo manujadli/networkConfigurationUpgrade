@@ -35,29 +35,57 @@ def Var2 = 'UNKNOWN'
             }
         }
   
-    stage ('1 choice') {
+    stage ('CALL UPGRADE PIPELINE Project') {
       when {
                 expression { Var2 == 'UPGRADE'}
             }
             steps {
-                echo "Hello, Choice 1!"
+                echo "Hello, UPGRADE PIPELINE CALLED !"
             }
     }
-    stage ('2 choice') {
+    stage ('Build Project') {
       when {
                 expression { Var2 != 'UPGRADE'}
             }
             steps {
-                echo "Hello, Choice 2!"
+                echo "Build Project Called"
             }
     }
-   stage ('3 choice') {
+   stage ('PUSH to ALM') {
       when {
                 expression { Var2 != 'UPGRADE'}
             }
             steps {
-                echo "Hello, Choice 3!"
+                echo "PUSH to ALM Called!"
             }
         }
+		
+	stage ('TEST In ALM') {
+      when {
+                expression { Var2 != 'UPGRADE'}
+            }
+            steps {
+                echo "TEST In ALM Called!"
+            }
+        }
+		
+	stage ('PUSH to NEXUS') {
+      when {
+                expression { Var2 != 'UPGRADE'}
+            }
+            steps {
+                echo "PUSH to NEXUS Called!"
+            }
+        }
+		
+	stage ('PUSH to SOM Catalog') {
+      when {
+                expression { Var2 != 'UPGRADE'}
+            }
+            steps {
+                echo "PUSH to SOM Catalog Called!"
+            }
+        }
+		
   }
 }
