@@ -51,7 +51,7 @@ def Var2 = 'UNKNOWN'
             }
             steps {
                 echo "Hello, UPGRADE PIPELINE CALLED !"
-				build job: 'CNF_UPGRADE', parameters: [string(name: "${name}", targetRelease: "${targetRelease}", action: "${action}", helmRelease: "${helmRelease}")], wait: false
+				build job: 'CNF_UPGRADE', parameters: [string(name: "resource::msw_up_ocp::2.0", targetRelease: "${targetRelease}", action: "${action}", helmRelease: "${helmRelease}")], wait: false
             }
     }
     stage ('Build Project') {
