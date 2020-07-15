@@ -4,8 +4,7 @@ def action = 'UNKNOWN'
 def helmRelease = 'UNKNOWN'
 def descriptor = 'UNKNOWN'
 def version = 'UNKNOWN'
-def Var1 = 'UNKNOWN'
-def Var2 = 'UNKNOWN'
+
 
 
  pipeline {
@@ -22,9 +21,7 @@ def Var2 = 'UNKNOWN'
 						name = props['name']
 						targetRelease = props['targetRelease']
 						action = props['action']
-						helmRelease = props['helmRelease']
-						Var1= props['name']
-						Var2= props['action']
+						helmRelease = props['helmRelease']						
 						echo "name=${name}"
 						echo "targetRelease=${targetRelease}"
 						echo "action=${action}"
@@ -51,7 +48,7 @@ def Var2 = 'UNKNOWN'
             }
             steps {
                 echo "Hello, UPGRADE PIPELINE CALLED !"
-				build job: 'CNF_UPGRADE', parameters: [[$class: 'StringParameterValue', name: 'name', value: name], [$class: 'StringParameterValue', name: 'targetRelease', value: 'resource::msw_up_ocp::2.1'], [$class: 'StringParameterValue', name: 'action', value: 'UPGRADE'], [$class: 'StringParameterValue', name: 'helmRelease', value: 'new_value']], wait: false
+				build job: 'CNF_UPGRADE', parameters: [[$class: 'StringParameterValue', name: 'name', value: name], [$class: 'StringParameterValue', name: 'targetRelease', value: targetRelease], [$class: 'StringParameterValue', name: 'action', value: action], [$class: 'StringParameterValue', name: 'helmRelease', value: helmRelease]], wait: false
             }
     }
     stage ('Build Project') {
