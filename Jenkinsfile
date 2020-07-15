@@ -1,3 +1,7 @@
+def name = 'UNKNOWN'
+def targetRelease = 'UNKNOWN'
+def action = 'UNKNOWN'
+def helmRelease = 'UNKNOWN'
 def descriptor = 'UNKNOWN'
 def version = 'UNKNOWN'
 def Var1 = 'UNKNOWN'
@@ -15,10 +19,16 @@ def Var2 = 'UNKNOWN'
 						echo 'Starting Reading File'
 						def data = readFile(file: 'assembly.properties')
 						def props = readProperties  file: 'assembly.properties'
+						name = props['name']
+						targetRelease = props['targetRelease']
+						action = props['action']
+						helmRelease = props['helmRelease']
 						Var1= props['name']
 						Var2= props['action']
-						echo "Var1=${Var1}"
-						echo "Var2=${Var2}"
+						echo "name=${name}"
+						echo "targetRelease=${targetRelease}"
+						echo "action=${action}"
+						echo "helmRelease=${helmRelease}"
 						println(data)
 
 					}
@@ -37,7 +47,7 @@ def Var2 = 'UNKNOWN'
   
     stage ('CALL UPGRADE PIPELINE Project') {
       when {
-                expression { Var2 == 'UPGRADE'}
+                expression { action == 'UPGRADE'}
             }
             steps {
                 echo "Hello, UPGRADE PIPELINE CALLED !"
@@ -46,7 +56,7 @@ def Var2 = 'UNKNOWN'
     }
     stage ('Build Project') {
       when {
-                expression { Var2 != 'UPGRADE'}
+                expression { action != 'UPGRADE'}
             }
             steps {
                 echo "Build Project Called"
@@ -54,7 +64,7 @@ def Var2 = 'UNKNOWN'
     }
    stage ('PUSH to ALM') {
       when {
-                expression { Var2 != 'UPGRADE'}
+                expression { action != 'UPGRADE'}
             }
             steps {
                 echo "PUSH to ALM Called!"
@@ -63,7 +73,7 @@ def Var2 = 'UNKNOWN'
 		
 	stage ('TEST In ALM') {
       when {
-                expression { Var2 != 'UPGRADE'}
+                expression { action != 'UPGRADE'}
             }
             steps {
                 echo "TEST In ALM Called!"
@@ -72,7 +82,7 @@ def Var2 = 'UNKNOWN'
 		
 	stage ('PUSH to NEXUS') {
       when {
-                expression { Var2 != 'UPGRADE'}
+                expression { action != 'UPGRADE'}
             }
             steps {
                 echo "PUSH to NEXUS Called!"
@@ -81,7 +91,7 @@ def Var2 = 'UNKNOWN'
 		
 	stage ('PUSH to SOM Catalog') {
       when {
-                expression { Var2 != 'UPGRADE'}
+                expression { action != 'UPGRADE'}
             }
             steps {
                 echo "PUSH to SOM Catalog Called!"
